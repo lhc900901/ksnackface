@@ -1,5 +1,7 @@
 // functions/api/snack-match.js
 
+// Cloudflare Pages Function 환경 변수 (GEMINI_API_KEY)는 env 객체를 통해 접근합니다.
+
 export async function onRequest(context) {
     const { request, env } = context;
 
@@ -115,12 +117,12 @@ export async function onRequest(context) {
             config: {
                 // 모델이 JSON 형식으로 응답하도록 설정
                 responseMimeType: "application/json", 
-                // Gemini-2.5-Flash는 빠른 응답 속도와 멀티모달 능력 제공
-                model: 'gemini-2.0-flash-live', 
+                // ✨ gemini-2.5-flash-live 모델로 변경
+                model: 'gemini-2.5-flash-live', 
             }
         };
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-live:generateContent?key=${GEMINI_API_KEY}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -148,5 +150,4 @@ export async function onRequest(context) {
         console.error('Function Error:', e);
         return new Response(`Internal Server Error: ${e.message}`, { status: 500 });
     }
-
 }

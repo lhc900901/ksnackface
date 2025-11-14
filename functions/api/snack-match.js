@@ -116,7 +116,7 @@ export async function onRequest(context) {
                 // 모델이 JSON 형식으로 응답하도록 설정
                 responseMimeType: "application/json", 
                 // Gemini-2.5-Flash는 빠른 응답 속도와 멀티모달 능력 제공
-                model: 'gemini-2.5-flash', 
+                model: 'gemini-2.0-flash-live', 
             }
         };
 
@@ -148,4 +148,5 @@ export async function onRequest(context) {
         console.error('Function Error:', e);
         return new Response(`Internal Server Error: ${e.message}`, { status: 500 });
     }
+
 }

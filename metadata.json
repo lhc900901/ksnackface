@@ -1,0 +1,5 @@
+{
+  "name": "K-snack Face Test",
+  "description": "An AI-powered application that analyzes your face to determine your K-snack type, matching you with Korean celebrities and providing a fun personality analysis.",
+  "requestFramePermissions": []
+}

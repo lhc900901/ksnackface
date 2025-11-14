@@ -84,7 +84,7 @@ const App: React.FC = () => {
               {language === 'ko' ? '당신은 어떤 K-과자 유형과 어울릴까요?' : 'Which K-snack type do you match with?'}
             </p>
             <p className="mt-2 text-sm text-gray-500">
-              {language === 'ko' ? '🔐 무료\u00A0\u00A0📸 사진은 저장되지 않습니다.' : '🔐 Free\u00A0\u00A0📸 Photos are not saved.'}
+              {language === 'ko' ? '🔐 무료\u00A0\u00A0📸 사진은 저장되지 않습니다. 🛡️' : '🔐 Free\u00A0\u00A0📸 Photos are not saved. 🛡️'}
             </p>
         </div>
 

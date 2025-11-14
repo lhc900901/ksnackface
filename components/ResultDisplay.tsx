@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import type { AnalysisResult, SnackTypeInfo } from '../types';
 import { ProgressBar } from './ProgressBar';
@@ -113,13 +112,13 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, imageUrl, 
 
                         return (
                             <div key={match.rank} className="p-3 bg-gray-800 rounded-lg flex items-center gap-3">
-                                <span className="font-bold text-base w-1/3 truncate" title={language === 'ko' ? match.snack_name : matchInfo?.snack_en || match.snack_name}>
+                                <span className="font-bold text-base w-1/3 truncate leading-none" title={language === 'ko' ? match.snack_name : matchInfo?.snack_en || match.snack_name}>
                                     {match.rank}. {language === 'ko' ? match.snack_name : matchInfo?.snack_en || match.snack_name}
                                 </span>
                                 <div className="flex-grow">
                                     <ProgressBar percentage={match.match_score_percent} colorClass={bgColorClass} />
                                 </div>
-                                <span className="font-mono text-base font-semibold text-brand-accent w-14 text-right">
+                                <span className="font-mono text-base font-semibold text-brand-accent w-14 text-right leading-none">
                                     {match.match_score_percent}%
                                 </span>
                             </div>
@@ -127,12 +126,11 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, imageUrl, 
                     })}
                 </div>
             </div>
+            <div className="mt-6 text-center text-xs text-gray-500">
+                <p>🍪K-과자 유형 테스트 | {window.location.href.replace(/^(https?:\/\/)/, '')}</p>
+            </div>
         </div>
         
-        <div className="mt-6 text-center text-xs text-gray-500 url-display-container">
-            <p>{window.location.href}</p>
-        </div>
-
         <div className="mt-4 flex flex-col sm:flex-row gap-4 share-buttons-container">
             <button 
                 onClick={onReset}

@@ -4,9 +4,10 @@ import { UploadIcon } from './icons';
 
 interface ImageUploaderProps {
   onImageSelect: (file: File) => void;
+  language: 'ko' | 'en';
 }
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect }) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect, language }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +51,16 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect }) =
       />
       <div className="flex flex-col items-center justify-center text-gray-400">
         <UploadIcon className="w-12 h-12 mb-4 text-gray-500" />
-        <p className="text-lg font-semibold">사진을 여기에 끌어다 놓거나 클릭하여 업로드하세요</p>
-        <p className="text-sm mt-1">얼굴이 잘 보이는 정면 사진을 사용해주세요.</p>
+        <p className="text-lg font-semibold">
+          {language === 'ko' 
+            ? '사진을 여기에 끌어다 놓거나 클릭하여 업로드하세요' 
+            : 'Drag & drop your photo here or click to upload'}
+        </p>
+        <p className="text-sm mt-1">
+          {language === 'ko' 
+            ? '얼굴이 잘 보이는 정면 사진을 사용해주세요.' 
+            : 'Please use a clear, front-facing photo.'}
+        </p>
       </div>
     </div>
   );

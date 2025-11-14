@@ -28,7 +28,7 @@ ${K_SNACK_DEFINITIONS}
 1.  **유형 분류**: 분석된 인상은 반드시 위 표의 '분류 ID (A-J)' 중 상위 3개를 선정해야 합니다.
 2.  **일치도 계산 (중요)**: 상위 3개 유형 각각에 대한 일치도(정수 백분율)를 계산합니다. 결과의 신뢰성을 높이기 위해 1위, 2위, 3위 간의 점수 격차를 10% 이상 두어야 합니다 (예: 85, 70, 55). 1위 점수는 80 이상이어야 합니다.
 3.  **K-스타 연결**: 1위 유형에 해당하는 '매칭 K-스타 3인'을 'all_matched_kstars' 필드에 포함합니다.
-4.  **유형 설명 생성**: 1위 유형을 기준으로, 사진 속 인물의 특징과 K-과자 유형 정의를 연결하여 'kstar_match_reason_kr' 필드에 구체적인 이유를 한국어 3문장 이내로, 간결하고 공유하기 좋게 작성하십시오.
+4.  **유형 설명 생성**: 1위 유형을 기준으로, 사진 속 인물의 특징과 K-과자 유형 정의를 연결하여 구체적인 이유를 작성합니다. 'kstar_match_reason_kr' 필드에는 한국어로 3문장 이내, 'kstar_match_reason_en' 필드에는 영어로 3문장 이내로, 간결하고 공유하기 좋게 작성하십시오.
 5.  **출력 형식**: 반드시 지정된 JSON 스키마에 따라 단일 JSON 객체만 반환해야 합니다. 다른 설명 텍스트는 일절 포함하지 마세요.
 `;
 
@@ -38,6 +38,7 @@ const responseSchema = {
         primary_match_id: { type: Type.STRING, description: "A-J 중 가장 높은 일치도를 가진 1위 분류 ID" },
         all_matched_kstars: { type: Type.STRING, description: "1위 유형에 해당하는 K-스타 3인 목록 (쉼표로 구분)" },
         kstar_match_reason_kr: { type: Type.STRING, description: "1위 유형을 기준으로 당신의 인상과 K-스타 유형 이미지가 연결되는 구체적인 이유 (한국어 3문장 이내)" },
+        kstar_match_reason_en: { type: Type.STRING, description: "The specific reason connecting your impression with the K-star type image based on the #1 type (in English, within 3 sentences)" },
         top_3_matches: {
             type: Type.ARRAY,
             items: {
@@ -54,7 +55,7 @@ const responseSchema = {
             }
         }
     },
-    required: ['primary_match_id', 'all_matched_kstars', 'kstar_match_reason_kr', 'top_3_matches']
+    required: ['primary_match_id', 'all_matched_kstars', 'kstar_match_reason_kr', 'kstar_match_reason_en', 'top_3_matches']
 };
 
 

@@ -16,6 +16,11 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showAllTypes, setShowAllTypes] = useState<boolean>(false);
+  const [language, setLanguage] = useState<'ko' | 'en'>('ko');
+
+  const handleLanguageToggle = () => {
+    setLanguage(prev => prev === 'ko' ? 'en' : 'ko');
+  };
 
   const handleImageSelect = useCallback(async (file: File) => {
     setImageFile(file);
@@ -30,11 +35,14 @@ const App: React.FC = () => {
       setAnalysisResult(result);
     } catch (err) {
       console.error(err);
-      setError('분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      const errorMessage = language === 'ko' 
+        ? '분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+        : 'An error occurred during analysis. Please try again later.';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [language]);
 
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -60,16 +68,30 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-brand-dark min-h-screen text-brand-light font-sans">
-      <Header onShowAllTypes={() => setShowAllTypes(true)} onReset={resetState} />
+      <Header 
+        onShowAllTypes={() => setShowAllTypes(true)} 
+        onReset={resetState}
+        language={language}
+        onLanguageToggle={handleLanguageToggle}
+      />
       
       <main className="pt-24 pb-12 px-4 max-w-4xl mx-auto">
         <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">AI K-과자 유형 테스트</h1>
-            <p className="mt-2 text-lg text-gray-400">당신의 얼굴은 어떤 K-과자상일까요?</p>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-pink-400 via-red-400 to-yellow-500 bg-clip-text text-transparent !leading-tight">
+              {language === 'ko' ? 'K-과자 유형 테스트' : 'K-Snack Type Test'}
+            </h1>
+            <p className="mt-2 text-lg text-gray-400">
+              {language === 'ko' ? '당신은 어떤 K-과자 유형과 어울릴까요?' : 'Which K-snack type do you match with?'}
+            </p>
+            <p className="mt-2 text-sm text-gray-500">
+              {language === 'ko' ? '🔐 무료\u00A0\u00A0📸 사진은 저장되지 않습니다.' : '🔐 Free\u00A0\u00A0📸 Photos are not saved.'}
+            </p>
         </div>
 
         {!imageUrl && (
-            <ImageUploader onImageSelect={handleImageSelect} />
+            <div className="w-4/5 md:w-3/5 mx-auto">
+              <ImageUploader onImageSelect={handleImageSelect} language={language} />
+            </div>
         )}
 
         {error && (
@@ -79,12 +101,12 @@ const App: React.FC = () => {
                     onClick={resetState}
                     className="mt-4 px-4 py-2 bg-brand-accent text-white font-bold rounded-lg hover:bg-pink-600 transition-colors"
                 >
-                    다시 시작하기
+                    {language === 'ko' ? '다시 시작하기' : 'Start Over'}
                 </button>
             </div>
         )}
 
-        {isLoading && <LoadingSpinner />}
+        {isLoading && <LoadingSpinner language={language} />}
 
         {analysisResult && imageUrl && (
              <ResultDisplay 
@@ -92,6 +114,7 @@ const App: React.FC = () => {
                 imageUrl={imageUrl} 
                 onReset={resetState} 
                 snackTypes={KSNACK_TYPES}
+                language={language}
             />
         )}
       </main>
@@ -100,6 +123,7 @@ const App: React.FC = () => {
         show={showAllTypes}
         onClose={() => setShowAllTypes(false)}
         snackTypes={KSNACK_TYPES}
+        language={language}
       />
     </div>
   );

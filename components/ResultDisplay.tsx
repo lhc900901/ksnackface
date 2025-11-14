@@ -104,23 +104,26 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, imageUrl, 
 
             <div className="mt-6 pt-5 border-t border-gray-700">
                 <h3 className="text-xl font-bold text-center mb-3">{language === 'ko' ? '일치도 Top 3' : 'Top 3 Matches'}</h3>
-                <div className="space-y-3">
+                <div className="space-y-4">
                     {result.top_3_matches.map((match) => {
                         const matchInfo = snackTypes.find(type => type.id === match.match_id);
                         const colorClass = matchInfo ? matchInfo.colorClass : 'text-brand-accent';
                         const bgColorClass = colorClass.replace('text-', 'bg-');
+                        const snackName = language === 'ko' ? match.snack_name : matchInfo?.snack_en || match.snack_name;
 
                         return (
-                            <div key={match.rank} className="p-3 bg-gray-800 rounded-lg flex items-center gap-3">
-                                <span className="font-bold text-base w-1/3 truncate leading-none" title={language === 'ko' ? match.snack_name : matchInfo?.snack_en || match.snack_name}>
-                                    {match.rank}. {language === 'ko' ? match.snack_name : matchInfo?.snack_en || match.snack_name}
-                                </span>
-                                <div className="flex-grow">
+                            <div key={match.rank} className="px-4 py-3 bg-gray-800 rounded-lg">
+                                <div className="flex justify-between items-baseline mb-2">
+                                    <span className="font-bold text-base truncate" title={snackName}>
+                                        {match.rank}. {snackName}
+                                    </span>
+                                    <span className="font-mono text-base font-semibold text-brand-accent flex-shrink-0">
+                                        {match.match_score_percent}%
+                                    </span>
+                                </div>
+                                <div>
                                     <ProgressBar percentage={match.match_score_percent} colorClass={bgColorClass} />
                                 </div>
-                                <span className="font-mono text-base font-semibold text-brand-accent w-14 text-right leading-none">
-                                    {match.match_score_percent}%
-                                </span>
                             </div>
                         );
                     })}

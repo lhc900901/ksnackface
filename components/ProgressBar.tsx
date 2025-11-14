@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface ProgressBarProps {
@@ -8,7 +7,10 @@ interface ProgressBarProps {
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, colorClass = 'bg-brand-accent' }) => {
   return (
-    <div className="w-full bg-gray-700 rounded-full h-2.5">
+    <div
+      className="bg-gray-700 rounded-full h-2.5"
+      style={{ marginLeft: '50%', width: '50%' }}
+    >
       <div
         className={`${colorClass} h-2.5 rounded-full transition-all duration-1000 ease-out`}
         style={{ width: `${percentage}%` }}

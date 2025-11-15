@@ -121,7 +121,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, imageUrl, 
                                         {match.match_score_percent}%
                                     </span>
                                 </div>
-                                <div>
+                                <div style={{ marginLeft: '40%', width: '60%' }}>
                                     <ProgressBar percentage={match.match_score_percent} colorClass={bgColorClass} />
                                 </div>
                             </div>

@@ -67,7 +67,7 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="bg-brand-dark min-h-screen text-brand-light font-sans">
+    <div className="bg-brand-dark min-h-screen text-brand-light font-sans flex flex-col">
       <Header 
         onShowAllTypes={() => setShowAllTypes(true)} 
         onReset={resetState}
@@ -75,7 +75,7 @@ const App: React.FC = () => {
         onLanguageToggle={handleLanguageToggle}
       />
       
-      <main className="pt-24 pb-12 px-4 max-w-4xl mx-auto">
+      <main className="pt-24 pb-12 px-4 max-w-4xl mx-auto w-full flex-grow">
         <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-pink-400 via-red-400 to-yellow-500 bg-clip-text text-transparent !leading-tight">
               {language === 'ko' ? 'K-과자 유형 테스트' : 'K-Snack Type Test'}
@@ -118,6 +118,25 @@ const App: React.FC = () => {
             />
         )}
       </main>
+
+      <footer className="text-center py-10 border-t border-gray-800 mt-auto">
+        <div className="max-w-4xl mx-auto px-4 text-gray-500">
+          <p className="text-lg font-bold text-gray-300 mb-2">
+            🍪 {language === 'ko' ? 'K-과자 유형 테스트' : 'K-Snack Type Test'}
+          </p>
+          <p className="text-sm mb-4">
+            {language === 'ko' ? 'AI가 분석해주는 어울리는 K-과자 유형' : 'AI analyzes the matching K-snack type for you'}
+          </p>
+          <button
+            onClick={() => setShowAllTypes(true)}
+            className="mb-6 px-5 py-2 bg-brand-secondary text-sm text-gray-200 rounded-full hover:bg-gray-700 transition-colors"
+            aria-label={language === 'ko' ? "모든 유형 설명 보기" : "View all type descriptions"}
+          >
+            {language === 'ko' ? '유형 전체보기' : 'View All Types'}
+          </button>
+          <p className="text-xs">&copy; 2025 All rights reserved.</p>
+        </div>
+      </footer>
 
       <AllTypesModal
         show={showAllTypes}
